@@ -1,0 +1,21 @@
+\section{Synopsis} This chapter describes a range of currently available {\em implementations} (i.e. runnable computer programs, rather than theoretical algorithms) for the computation of Tutte polynomials of general graphs. For each of these, we briefly describe the underlying algorithm, compare and contrast their empirical performance on a range of input graphs and discuss various practical performance tuning issues. 
+
+\begin{itemize}
+\item The program \verb+tutte+ by Haggard, Pearce and Royle that uses deletion-contraction combined with isomorph-detection to compute the Tutte polynomial $T_G(x,y)$ for any graph~\cite{HPR10,PHR09}. The input graph may have loops and multiple edges and may have any number of connected components.  At the time of writing this program is available from \url{http://homepages.ecs.vuw.ac.nz/~djp/tutte/}. A version of this program is incorporated in Mathematica 10.
+
+\item The program \verb+tutte+ by Bedini and Jacobsen that uses tree decomposition combined with an approach related to transfer matrices to compute $Z_G(q,v)$, the partition function of the $q$-state Potts model for graphs~\cite{BJ10}. The input graph may have multiple edges, but must be connected, and (in the current version) loops are not processed correctly. At the time of writing, this program is available from \url{https://github.com/andreabedini/tutte}.
+
+\item The program \verb+tutte_bhkk+ by Bj\"orklund, Husfeldt, Kaski and Koivisto \cite{BHKK08b} that works with every subset of the {\em vertex set} of the graph, and numerically evaluates the Tutte polynomial at enough different points that the coefficients can be recovered by Lagrange interpolation. The input graph must be simple, having no loops or multiple edges, but it may have any number of connected components. At the time of writing, this program is available from
+\url{https://github.com/thorehusfeldt/tutte_bhkk}.
+
+ \item The C++ implementation of the program \verb+tuttepol+ developed by Thomas Britz (see \cite{MR2319391}) for linear codes. This program computes the Tutte polynomial of a binary matroid. Any such matroid can be represented by a binary matrix in reduced form $[I_r \mid A]$ and it is the
+ matrix $A$ that is input to the program. The input matroid may have loops and/or parallel edges. At the time of writing, this program is available from \url{http://thomasbritz.dk/}.
+ 
+\item Rudi Pendavingh's implementation of the method \verb+tutte_polynomial()+ in 
+the \verb+sage_matroids+ package of the computer algebra system \verb+Sage+.  This is an optimised, but essentially naive, algorithm that runs through all the bases of the matroid and works out the coefficient to which it contributes, by  determining its internal and external activity with respect to some fixed ordering on the elements. There is no restriction on the input, which can be any matroid supported by \verb+sage_matroids+. This is available as part of the standard distribution of Sage at \url{http://sagemath.org/}.\end{itemize}
+
+Apart from the \verb+tutte_polynomial()+ method distributed with Sage, all of the packages require downloading and compiling, mostly for a Unix-like system (Linux etc), which is not always straightforward, especially if various auxiliary packages and libraries need to be installed first. 
+
+Readers should note that there is continual progress in this area, that researchers frequently write their own programs 
+for personal use that may or may not be generally available, and that stand-alone programs that prove valuable are frequently
+incorporated into general purpose computer algebra systems such as Maple, Mathematica or Sage. In summary, {\em caveat emptor}!

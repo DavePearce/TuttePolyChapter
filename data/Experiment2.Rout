@@ -1,0 +1,149 @@
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library(ggplot2)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> 
+> dev.new(width=4,height=3)
+dev.new(): using pdf(file="Rplots7.pdf")
+> 
+> # =================================================
+> # PLANAR GRAPHS
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-0959.planar-graph-vX-n100.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V5,V2) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Heuristic=V5)
+> ggplot(meanData,aes(x=V2,y=average,group=Heuristic,shape=Heuristic,color=Heuristic)) + 
++        geom_line(aes(linetype=Heuristic),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random Planar Graphs") +
++        xlab("|V|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,50))
+> 
+> ggsave("Exp2_planar_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> # =================================================
+> # Regular3 GRAPHS
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-0959.reg3vX.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V5,V2) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Heuristic=V5)
+> ggplot(meanData,aes(x=V2,y=average,group=Heuristic,shape=Heuristic,color=Heuristic)) + 
++        geom_line(aes(linetype=Heuristic),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random 3-Regular Graphs") +
++        xlab("|V|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,50))
+> 
+> ggsave("Exp2_reg3_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> # =================================================
+> # Regular4 Graphs
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-0959.reg4vX.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V5,V2) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Heuristic=V5)
+> ggplot(meanData,aes(x=V2,y=average,group=Heuristic,shape=Heuristic,color=Heuristic)) + 
++        geom_line(aes(linetype=Heuristic),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random 4-Regular Graphs") +
++        xlab("|V|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,50))
+> 
+> ggsave("Exp2_reg4_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> # =================================================
+> # Random v12
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-0959.random-connected-v12-eX.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V5,V3) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Heuristic=V5)
+> ggplot(meanData,aes(x=V3,y=average,group=Heuristic,shape=Heuristic,color=Heuristic)) + 
++        geom_line(aes(linetype=Heuristic),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random Graphs (|V|=12)") +
++        xlab("|E|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,5))
+> 
+> ggsave("Exp2_random12_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> # =================================================
+> # Random v14
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-0959.random-connected-v14-eX.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V5,V3) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Heuristic=V5)
+> ggplot(meanData,aes(x=V3,y=average,group=Heuristic,shape=Heuristic,color=Heuristic)) + 
++        geom_line(aes(linetype=Heuristic),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random Graphs (|V|=14)") +
++        xlab("|E|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,50))
+> 
+> ggsave("Exp2_random14_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> # =================================================
+> # Random v16
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-0959.random-connected-v16-eX.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V5,V3) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Heuristic=V5)
+> ggplot(meanData,aes(x=V3,y=average,group=Heuristic,shape=Heuristic,color=Heuristic)) + 
++        geom_line(aes(linetype=Heuristic),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random Graphs (|V|=16)") +
++        xlab("|E|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,150))
+> 
+> ggsave("Exp2_random16_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> proc.time()
+   user  system elapsed 
+  3.153   0.049   5.674 

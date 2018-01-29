@@ -1,0 +1,66 @@
+\documentclass[krantz1,ChapterTOCs]{krantz} %See documentation for other class options
+\usepackage{fixltx2e,fix-cm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{pinlabel}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{chapterbib}
+
+\AtBeginDocument{\renewcommand{\bibname}{Resource List}}
+\HeadingsChapterSection
+
+\frenchspacing
+\tolerance=5000
+
+
+
+\makeindex  %%%%% PLEASE USE \index{term} TO CREATE AN INDEX FOR YOUR CHAPTER. PLEASE SEE THE COMMENTS IN THE CHAPTER GUIDELINES FOR FURTHER DETAILS.
+
+
+%%%%%%%%% CHAPTER AUTHOR MACROS HERE %%%%%%%
+
+\begin{document}
+\frontmatter
+
+
+\chapter*{Symbols} %%%%% IF YOU BELIEVE ANY NOTATION YOU INTRODUCE SHOULD APPEAR IN A SYMBOL LIST AT THE START OF THE BOOK, PLEASE ADD IT HERE USING THE FORMAT SHOWN BELOW FOR THE $T(G;x,y)$
+\begin{symbollist}{0000000}
+%\symbolentry{$T(G;x,y)$}{The Tutte polynomial of  $G$}
+\symbolentry{$Z(G;q,v)$}{The partition function of the $q$-state Potts model on $G$}
+\end{symbollist}
+
+
+\mainmatter
+
+\chapterauthor{Gordon F. Royle}{School of Mathematics and Statistics, University of Western Australia\\
+35 Stirling Highway, Nedlands WA 6009, Australia\\+61 864883460\\
+\texttt{gordon.royle@uwa.edu.au}\\}
+
+\chapterauthor{David Pearce}{School of Engineering and Computer Science, Victoria University of Wellington\\
+PO Box 600, Wellington, New Zealand\\phone number2\\
+\texttt{David.Pearce@ecs.vuw.ac.nz}\\}
+
+\chapter{Computational Resources}
+
+
+\input synopsis
+
+\input implementations
+
+\input performance
+
+\input conclusion
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\printindex
+
+\end{document} 

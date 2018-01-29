@@ -1,0 +1,60 @@
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library(ggplot2)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> 
+> dev.new(width=4,height=3)
+dev.new(): using pdf(file="Rplots10.pdf")
+> 
+> # =================================================
+> # PLANAR GRAPHS
+> # =================================================
+> 
+> rawData = read.csv(file="results/31Dec14-1000.planar-graph-vX-n100.dat/summary.dat",header=FALSE,sep="\t")
+> meanData = rawData %>% group_by(V6,V2) %>% summarise(average=mean(V4),sd=sd(V4))
+> meanData = mutate(meanData, Algorithm=paste(V6/(1024*104),"M"))
+> ggplot(meanData,aes(x=V2,y=average,group=Algorithm,shape=Algorithm,color=Algorithm)) + 
++        geom_line(aes(linetype=Algorithm),size=0.75) +
++        geom_point(size=1.5, fill="white") +
++        ggtitle("Random Planar Graphs") +
++        xlab("|V|") +
++        ylab("Mean Time / s") +
++        coord_cartesian(ylim=c(0,50))
+> 
+> ggsave("Exp3_planar_graphs.pdf")
+Saving 4 x 3 in image
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  2.465   0.152   2.753 
