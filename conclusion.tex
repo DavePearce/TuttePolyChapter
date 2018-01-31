@@ -1,14 +1,17 @@
+%!TEX root = PearceRoyle.tex
+
 %% Experimental performance
 %% 
 
 \section{Conclusions}  
 
-Until quite recently, researchers wishing to compute exact Tutte polynomials for even small graphs would either have to use the naive implementations of the deletion-contraction algorithm found in standard computer algebra systems, or they would have to write their own. However in the last 5-10 years, a number of improved algorithms have been devised, with some of these implementations finding their way into the standard computer algebra systems. Thus researchers now have a number of easily-accessible computational tools that permit the computation of the Tutte polynomials of considerably larger graphs than was previously possible.
+The major conclusion that one can reach is that computing the Tutte polynomial is \emph{hard} both theoretically and in 
+practice. On the theoretical side, it is well known that computing almost anything about the Tutte polynomial (its evaluations at various points, or its one-variable specialisations such as the chromatic polynomial, the flow polynomial and the reliability polynomial) is either \#P-complete or NP-hard, and so it is extremely unlikely that any algorithm or program will scale well. On the practical side, computing the Tutte polynomial of even quite small graphs (fewer than $20$ vertices) can be a major undertaking, rapidly becoming impossible with the addition of even a few additional vertices.
 
-Of course, it is known that computing almost anything about the Tutte polynomial (its evaluations at various points, or its one-variable specialisations such as the chromatic polynomial, the flow polynomial and the reliability polynomial) is either \#P-complete or NP-hard. Therefore it is unlikely that any algorithm or program will scale well, so it is really just a case of extending the ``feasible range'' somewhat further than can be achieved with plain deletion-contraction.
-
-Drawing firm conclusions about which program or algorithm is the ``best'' is extremely difficult because the empirical performance of each
-of the programs varies dramatically, but not predictably, according to a number of different factors. Obviously the size (numbers of vertices and edges) and structure (planar, non-planar etc.) of the graph are important, but in practice even just changing the particular {\em labelling} of the graph can make an order of magnitude difference. On top of this, some of the programs have user-selectable parameters that influence performance, and altering these can make a huge difference.
+To counter this gloomy conclusion, we note that the situation has improved considerably over the last few years, and researchers 
+have easier access to a wider range of computational tools than ever before. The emergence of computational tools for computing
+Tutte polynomials that are \emph{not} based on deletion-contraction makes it feasible to compute the Tutte polynomials of
+whole new families of graphs.   Drawing firm conclusions about which program or algorithm is ``the best'' is impossible because the empirical performance of each of the programs varies dramatically, but not predictably, according to a number of different factors. Obviously the size (numbers of vertices and edges) and structure (planar, non-planar etc.) of the graph are important, but in practice even just changing the particular {\em labelling} of the graph can make an order of magnitude difference. On top of this, some of the programs have user-selectable parameters that influence performance, and altering these in a variety of combinations can also make a huge difference.
 
 As an illustration of this, Table~\ref{tutcox} shows the results of using BJ and HPR to compute the Tutte polynomial for 200 random relabellings of the unique 30-vertex cubic graph of girth 8, which is known either as Tutte's 8-cage or the Tutte-Coxeter graph. By its nature, BHKK is far more consistent returning almost identical times over different relabellings, but BHKK cannot deal with a 30-vertex graph in a reasonable time.
 
@@ -23,7 +26,8 @@ HPR & 11.4 & 35.4 & 3.5 & 6.1\\
 \label{tutcox}
 \end{table}
 
-Confounding this problem is that most graph generators produce graphs with some sort of canonical labelling (for example, the vertex $0$ is often adjacent to the vertices $1$, $2$, $3$, $\ldots$) while the Tutte polynomial algorithms will -- after exhausting any applicable vertex-selection heuristics -- process the vertices in some arbitrary order, usually just by increasing vertex number. In practice, the unpredictable interaction between these two sorts of ``incidental structure'' often seems to mean that the ``raw'' graphs produced by the graph generator are non-typical examples. Of course, perhaps  this phenomenon could be exploited and graphs deliberately relabelled with ``good'' labellings in the initial step.
+Confounding this problem is that most graph generators produce graphs with some sort of canonical labelling (for example, the vertex $0$ is often adjacent to the vertices $1$, $2$, $3$, $\ldots$) while the Tutte polynomial algorithms will -- after exhausting any applicable vertex-selection heuristics -- process the vertices in some arbitrary order, usually just by increasing vertex number. In practice, the unpredictable interaction between these two sorts of ``incidental structure'' often seems to mean that graph generating programs
+produce graphs that are highly non-typical.  %Of course, perhaps  this phenomenon could be exploited and graphs deliberately relabelled with ``good'' labellings in the initial step.
 
 %\begin{tikzpicture}
 %\begin{axis}[only marks,
@@ -36,14 +40,18 @@ Confounding this problem is that most graph generators produce graphs with some 
 %\end{tikzpicture}
 
 Thus it is only possible to draw the following rather ``broad-brush'' conclusions with the caveat that the user should always consider experimenting with the labelling of the graph, the available program parameters, and the other implementations.
-
 \begin{itemize}
-\item If the graph is large and sparse, then consider BJ first
+\setlength{\itemsep}{0pt}
+\item If the graph is large and either sparse or ``skinny'', then consider BJ first
 \item If the graph is small and dense, then consider BHKK first
 \item In all other cases, consider HPR first.
 \end{itemize}
 
-For those interested in the Tutte polynomials of matroids, it will always be better to use the 
+
+
+\section{Open Problems}
+
+
 
 
 
