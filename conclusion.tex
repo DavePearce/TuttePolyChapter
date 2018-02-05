@@ -13,18 +13,47 @@ have easier access to a wider range of computational tools than ever before. The
 Tutte polynomials that are \emph{not} based on deletion-contraction makes it feasible to compute the Tutte polynomials of
 whole new families of graphs.   Drawing firm conclusions about which program or algorithm is ``the best'' is impossible because the empirical performance of each of the programs varies dramatically, but not predictably, according to a number of different factors. Obviously the size (numbers of vertices and edges) and structure (planar, non-planar etc.) of the graph are important, but in practice even just changing the particular {\em labelling} of the graph can make an order of magnitude difference. On top of this, some of the programs have user-selectable parameters that influence performance, and altering these in a variety of combinations can also make a huge difference.
 
-As an illustration of this, Table~\ref{tutcox} shows the results of using BJ and HPR to compute the Tutte polynomial for 200 random relabellings of the unique 30-vertex cubic graph of girth 8, which is known either as Tutte's 8-cage or the Tutte-Coxeter graph. By its nature, BHKK is far more consistent returning almost identical times over different relabellings, but BHKK cannot deal with a 30-vertex graph in a reasonable time.
+To illustrate this point, consider the two $(16,6,2)$ strongly-regular graphs, namely the Cartesian product $K_4 \square K_4$ and
+the Shrikhande graph. For our current purposes, what ``strongly regular'' means is not important, just that they are both $6$-regular graphs on $16$ vertices with the exact same number of spanning trees. We consider $100$ random relabellings of 
+each of these graphs and then use HPR, BJ and BHKK to compute their Tutte polynomials, and present the
+a summary of their running times in Table~\ref{timings}. 
+
+\renewcommand{\arraystretch}{2}
 
 \begin{table}
-\begin{tabular}{l|rrrr}
-Algorithm & Avg & Max & Min & Std. dev.\\
+\begin{tabular}{llrrrr}
+Algorithm & Graph & Avg & Max & Min & Stdev \\
 \hline
-BJ & 44.9 & 419.1 & 9.5 & 46.3\\
-HPR & 11.4 & 35.4 & 3.5 & 6.1\\
+HPR & $K_4 \square K_4$ & $9.5$ & $24.4$ & $1.1$ & $5.5$\\
+HPR & Shrikhande & $19.5$ & $61.6$ & $4.2$ & $13.1$ \\
+BJ & $K_4 \square K_4$ & $26.6$ & $111.6$ & $6.0$ & $30.2$\\
+BJ & Shrikhande & $57.2$ & $168.2$ & $6.1$ & $53.6$\\
+BHKK & $K_4 \square K_4$& $50.7$ & $54.1$ & $49.4$ & $0.6$\\
+BHKK & Shrikhande & $50.7$ & $52.1$ & $49.4$ & $0.5$ \\
 \end{tabular}
-\caption{Computation times (in seconds) over 200 random relabellings of Tutte's 8-cage}
-\label{tutcox}
+\caption{Computation times (secs) over 100 relabellings of two $16$-vertex graphs}
+\label{timings}
 \end{table}
+
+There is considerable variation in the time taken by HPR and BJ, though interestingly each program (on average)
+finds $K_4 \square K_4$ easier than the Shrikhande graph. On the other hand, BHKK takes essentially the 
+same time on all of the labellings of each graph.
+
+
+
+
+%As an illustration of this, Table~\ref{tutcox} shows the results of using BJ and HPR to compute the Tutte polynomial for 200 random relabellings of the unique 30-vertex cubic graph of girth 8, which is known either as Tutte's 8-cage or the Tutte-Coxeter graph. By its nature, BHKK is far more consistent returning almost identical times over different relabellings, but BHKK cannot deal with a 30-vertex graph in a reasonable time.
+%
+%\begin{table}
+%\begin{tabular}{l|rrrr}
+%Algorithm & Avg & Max & Min & Std. dev.\\
+%\hline
+%BJ & 44.9 & 419.1 & 9.5 & 46.3\\
+%HPR & 11.4 & 35.4 & 3.5 & 6.1\\
+%\end{tabular}
+%\caption{Computation times (in seconds) over 200 random relabellings of Tutte's 8-cage}
+%\label{tutcox}
+%\end{table}
 
 Confounding this problem is that most graph generators produce graphs with some sort of canonical labelling (for example, the vertex $0$ is often adjacent to the vertices $1$, $2$, $3$, $\ldots$) while the Tutte polynomial algorithms will -- after exhausting any applicable vertex-selection heuristics -- process the vertices in some arbitrary order, usually just by increasing vertex number. In practice, the unpredictable interaction between these two sorts of ``incidental structure'' often seems to mean that graph generating programs
 produce graphs that are highly non-typical.  %Of course, perhaps  this phenomenon could be exploited and graphs deliberately relabelled with ``good'' labellings in the initial step.

@@ -5,7 +5,8 @@
 
 \section{Comparative Performance}  
 
-In this section, we report on experiments comparing the tools HPR, BJ and BHKK.  The objective here is to give the reader an indication of the performance that can be expected in practice.  We consider random connected graphs, random planar graphs and random regular graphs.  The machine used for these experiments was an Intel Code i5 3.2GHz with 8GB of memory, running Arch Linux 3.12.9-2.
+In this section, we report very briefly on one sequence of experiments comparing the tools HPR, BJ and BHKK to give
+a very general impression of comparative performance. We consider random connected graphs, random planar graphs and random regular graphs, as three important classes of graphs frequently appearing in combinatorics. 
 
 \subsection{Experimental Procedure}
 To generate {\em random connected graphs}, we employed the tool \verb+genrang+ (supplied with {\em nauty}) to construct random graphs with a given number of edges; from these, we selected connected graphs until there were 100 for each value of $|E|$ or $|V|$ (depending upon experiment).  The \verb+genrang+ tool constructs a random graph by generating a random edge, adding it to the graph (if not already present), and then repeating this until enough edges have been added.  We also used \verb+genrang+ to generate random simple regular graphs --- this essentially works by generating a random regular multigraph and then throwing it out if it contains loops or multiple edges.  Generating {\em random planar graphs} required a different approach since the number of randomly generated graphs that are planar is extremely small.  Therefore, we employed a Markov-chain approach:  here, a pair of vertices were selected at random; if the corresponding edge was not already present and the graph would remain planar, then it was added; otherwise, it was removed.  This procedure was repeated for $3n^2$ steps (which, according to \cite{DVW96}, is well beyond the equilibrium point).
@@ -22,10 +23,13 @@ To generate {\em random connected graphs}, we employed the tool \verb+genrang+ (
 \label{experiment_1}
 \end{figure}
 
-\subsection{Experiment I}
+All experiments were performed on an Intel Core i5 3.2GHz with 8GB of memory, running Arch Linux 3.12.9-2
 
-In the first experiment, we compared the base performance of the three tools outlined in \S\ref{implementations}.  That is, each tool was executed without any additional command-line parameters being provided.  This gives an out-of-the-box comparison of the tools, and provides a starting point for our subsequent investigations into the effects of the various options available to each tool.
+\subsection{Outcomes} 
 
+For each class of graphs, we compared the base performance of the three tools HPR, BJ and BHKK as described in
+ \S\ref{implementations}.  That is, each tool was executed without any additional command-line parameters being provided.  This gives an out-of-the-box comparison of the tools.
+ 
 The results from this experiment are shown in Figure~\ref{experiment_1}.  The results show considerable variation between the three tools, with each performing well in some areas.  For example, BHKK performs poorly on sparse graphs, but is more competitive on denser graphs.  Likewise, BJ performs very well on sparse graphs, but poorly on dense graphs. 
 
 An interesting effect can be observed for HPR for the random graphs where $|V|=16$.  Here, we can see a sudden change in the behaviour of the algorithm.  This reflects the edge selection heuristic which, by default, is set to an \verb+auto+ mode.  In this mode the tool examines the graph density and, based on this, switches between a heuristic which operates better on sparse graphs and one which is better for dense graphs.  As we can see, whilst this mode is having a useful effect, it is also far from optimal.
